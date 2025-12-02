@@ -13,11 +13,12 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model User {
+model Users {
   username String  @id @db.VarChar(100)
   password String  @db.VarChar(100)
   name     String  @db.VarChar(100)
   token    String? @db.VarChar(100)
+  picture  String? @db.VarChar(255)
 
   @@map("users")
 }

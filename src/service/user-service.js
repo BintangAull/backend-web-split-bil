@@ -13,7 +13,7 @@ import {v4 as uuid} from "uuid";
 const register = async (request)=>{
     const user = validate(registerUserValidation, request)
 
-    const countUser= await prismaClient.user.count({
+    const countUser= await prismaClient.users.count({
         where:{
             username: user.username
         }
@@ -24,7 +24,7 @@ const register = async (request)=>{
     }
     user.password = await bcrypt.hash(user.password, 10);
 
-    return prismaClient.user.create({
+    return prismaClient.users.create({
         data: user,
         select : {
             username: true,
@@ -36,7 +36,7 @@ const register = async (request)=>{
 const login = async (request)=>{
     const loginRequest = validate(loginUserValidation, request)
 
-    const user =await prismaClient.user.findUnique({
+    const user =await prismaClient.users.findUnique({
         where:{
             username: loginRequest.username,
         },
@@ -57,7 +57,7 @@ const login = async (request)=>{
 
     const token = uuid().toString();
 // kita update ke database untuk kasih token supaya dia punya akses
-    return prismaClient.user.update({
+    return prismaClient.users.update({
         data :{
             token:token,
         },
@@ -73,7 +73,7 @@ const login = async (request)=>{
 const getUser = async (username)=>{
     username = validate(getUserValidation, username)
 
-    const user= await prismaClient.user.findUnique({
+    const user= await prismaClient.users.findUnique({
         where:{
             username: username,
         },
@@ -93,7 +93,7 @@ const getUser = async (username)=>{
 const updateUser = async (request)=>{
     const user = validate(updateUserValidation, request)
 
-    const countUser= await prismaClient.user.count({
+    const countUser= await prismaClient.users.count({
         where:{
             username: user.username
         }
@@ -111,7 +111,7 @@ const updateUser = async (request)=>{
         data.password = await bcrypt.hash(user.password, 10);
     }
 
-    return prismaClient.user.update({
+    return prismaClient.users.update({
         where : {
             username: user.username
         },
@@ -127,7 +127,7 @@ const updateUser = async (request)=>{
 const logoutUser = async (username)=>{
     username = validate(getUserValidation, username)
 
-    const user = await prismaClient.user.findUnique(
+    const user = await prismaClient.users.findUnique(
         {
             where:{
                 username: username,
@@ -138,7 +138,7 @@ const logoutUser = async (username)=>{
     if(!user){
         throw new ResponseError(404,"User does not exist")
     }
-    return prismaClient.user.update({
+    return prismaClient.users.update({
         where:{
             username: username,
         },

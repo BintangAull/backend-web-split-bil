@@ -29,7 +29,7 @@ const googleAuthCallback = async (req, res, next) => {
         const { email, name, picture } = userData
 
         //cek di database
-        let user = await prismaClient.user.findMany({
+        let user = await prismaClient.users.findMany({
             where: {
                 username: email,
             }
@@ -38,7 +38,7 @@ const googleAuthCallback = async (req, res, next) => {
         if (!user){
             const token = uuid().toString()
             //kalo dia user gada maka kita insert ka database
-            user = await prismaClient.user.create({
+             await prismaClient.users.create({
                 data: {
                     username : email,
                     name : name,
