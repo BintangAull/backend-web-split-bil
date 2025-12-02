@@ -47,8 +47,7 @@ const googleAuthCallback = async (req, res, next) => {
                 }
             })
         }
-
-        res.redirect('http://localhost:5173/dashboard') // redirect ke url front end kita
+        res.redirect('http://localhost:5173/dashboard/splitnow') // redirect ke url front end kita
     } catch (e) {
         next(e);
     }
