@@ -5,7 +5,7 @@ import {removeAllParticipant, removeAllTestKegiatan, removeTestItem, removeTestU
 // await removeTestUser();
 
 
-await removeTestItem();
-await removeAllParticipant();
+// await removeTestItem();
+// await removeAllParticipant();
 await removeAllTestKegiatan();
-await removeTestUser();
+// await removeTestUser();

@@ -11,11 +11,11 @@ import {updateParticipantCost} from "../../test/util.js";
 
 const createKegiatan = async (user, request) => {
     if (request.event_date) {
-        const [day, month, year] = request.event_date.split("-");
-        request.event_date = new Date(`${year}-${month}-${day}`).toISOString(); // Konversi ke ISO
+        // const [day, month, year] = request.event_date.split("-");
+        request.event_date = new Date(request.event_date).toISOString();
     }
 
-
+    request.taxPercentage = parseFloat(request.taxPercentage);
     const validRequest = validate(addKegiatanValidasi, request)
     validRequest.username = user.username;
 
@@ -86,11 +86,15 @@ const addItem = async (request, participantId) => {
 
 const getAllItems = async (participantId) => {
     return prismaClient.items.findMany({
-        where:{
+        where: {
             participantId: participantId
+        },
+        include: {
+            participant: true
         }
     })
 }
+
 
 const deleteItem = async (itemId) => {
     return prismaClient.items.delete({

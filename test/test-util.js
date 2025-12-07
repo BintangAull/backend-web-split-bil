@@ -4,7 +4,7 @@ import bcrypt from "bcrypt";
 export  const removeTestUser = async () => {
     await prismaClient.users.deleteMany({
         where: {
-            username: "test"
+            username: "bintangaajja@gmail.com"
         }
     });
 
@@ -62,7 +62,7 @@ export const getKegiatan = async () => {
 export const removeAllParticipant = async ()=>{
     return prismaClient.participants.deleteMany({
         where: {
-            kegiatanId:1
+            kegiatanId:8
         }
     })
 }

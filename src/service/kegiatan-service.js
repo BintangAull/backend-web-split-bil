@@ -43,12 +43,20 @@ const summary = async (kegiatanId) => {
         0
     );
 
+    const subTotal = participantsSummary.reduce(
+        (sum, p) => sum + p.subtotal,
+        0
+    );
+
     return {
         id: kegiatan.id,      // FIX
         name: kegiatan.name,  // FIX
+        event_date: kegiatan.event_date,
         taxPercentage,
         participants: participantsSummary,
-        totalPembayaran: grandTotal
+        totalPembayaran: grandTotal,
+        subTotal
+
     };
 };
 

@@ -35,12 +35,12 @@ const addParticipants = async (req, res, next) => {
 
 const getAllParticipant = async (req, res, next) => {
     try {
-        const kegiatanId = parseInt(req.params.kegiatanId, 10);
+        const kegiatanId = parseInt(req.params.kegiatanId);
 
         const result = await billService.getAllParticipant(kegiatanId)
         res.status(200).json({
             data :result,
-            message : "Peserta berhasil ditambahkan"
+            message : "Peserta berhasil diambil"
         })
     }catch (error){
         next(error);
